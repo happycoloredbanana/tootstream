@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Block / Unblock function
 - Mute / Unmute function
 - Follow requests (accept / reject)
+- Streaming support
+- OAuth and 2FA support
 
 ## Release
 ## [0.1.0] - 2017-05-02
