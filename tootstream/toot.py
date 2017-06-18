@@ -947,6 +947,42 @@ reject.__argstr__ = '<user>'
 
 
 @command
+def media(mastodon, rest):
+    """Open media attachment by toot ID and media index."""
+    command = re.split('\s+', rest.strip(), 1)
+    if command[0] == "":
+        return
+
+    toot_id = IDS.to_global(command[0])
+    if toot_id is None:
+        return
+
+    try:
+        media_idx = int(command[1])
+    except IndexError:
+        media_idx = 0
+    except ValueError:
+        cprint("  invalid media index: {}".format(command[1]), fg('red'))
+        return
+
+    toot = mastodon.status(toot_id)
+    media = toot['media_attachments']
+    if len(media) == 0:
+        cprint("  this toot has no media atached", fg('red'))
+        return
+
+    try:
+        attachment = media[media_idx]
+    except IndexError:
+        cprint("  invalid media index, there are {} media "
+                "attached to this toot".format(len(media)), fg('red'))
+        return
+
+    click.launch(attachment['url'])
+media.__argstr__ = '<id> <idx>'
+
+
+@command
 def quit(mastodon, rest):
     """Ends the program."""
     sys.exit("Goodbye!")
