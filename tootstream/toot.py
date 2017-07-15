@@ -607,7 +607,7 @@ def note(mastodon, rest):
         if note['type'] == 'mention':
             cprint(display_name + username, fg('magenta'))
             print("  " + format_toot_idline(note['status']))
-            cprint(get_content(note['status']), attr('bold'), fg('white'))
+            cprint(get_content(note['status']), attr('bold'))
             print()
 
         # Favorites
